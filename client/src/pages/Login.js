@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { Box, Heading, Input, Button, Text, VStack, Container, useToast } from "@chakra-ui/react";
+import { Heading, Input, Button, Text, VStack, Container, useToast } from "@chakra-ui/react";
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
