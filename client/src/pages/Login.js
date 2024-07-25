@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { Box, Heading, Input, Button, Text, VStack } from "@chakra-ui/react"
+import { Box, Heading, Input, Button, Text, VStack, Container, useToast } from "@chakra-ui/react";
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import BackButton from '../components/BackButton';
 
-const Login = (props) => {
+const Login = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -16,8 +20,16 @@ const Login = (props) => {
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);
+      navigate('/dashboard');
     } catch (e) {
       console.log(e);
+      toast({
+        title: "Login Error",
+        description: e.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -30,31 +42,38 @@ const Login = (props) => {
   };
 
   return (
-    <Box p={5}>
-      <VStack spacing={4} align="stretch">
-        <Heading as="h2" size="xl">Login</Heading>
+    <Container maxW="container.sm" centerContent>
+      <VStack spacing={4} align="stretch" width="100%">
+        <BackButton />
+        <Heading as="h2" size="xl" textAlign="center">Login</Heading>
         <form onSubmit={handleFormSubmit}>
-          <Input
-            placeholder="Your email"
-            name="email"
-            type="email"
-            value={formState.email}
-            onChange={handleChange}
-            mb={2}
-          />
-          <Input
-            placeholder="******"
-            name="password"
-            type="password"
-            value={formState.password}
-            onChange={handleChange}
-            mb={2}
-          />
-          <Button type="submit" colorScheme="teal">Submit</Button>
+          <VStack spacing={4}>
+            <Input
+              placeholder="Your email"
+              name="email"
+              type="email"
+              value={formState.email}
+              onChange={handleChange}
+            />
+            <Input
+              placeholder="******"
+              name="password"
+              type="password"
+              value={formState.password}
+              onChange={handleChange}
+            />
+            <Button type="submit" colorScheme="teal" width="100%">Login</Button>
+          </VStack>
         </form>
-        {error && <Text color="red.500">The provided credentials are incorrect</Text>}
+        {error && <Text color="red.500" textAlign="center">The provided credentials are incorrect</Text>}
+        <Text textAlign="center">
+          Don't have an account? {' '}
+          <RouterLink to="/signup" style={{ color: 'teal' }}>
+            Sign up here
+          </RouterLink>
+        </Text>
       </VStack>
-    </Box>
+    </Container>
   );
 };
 
