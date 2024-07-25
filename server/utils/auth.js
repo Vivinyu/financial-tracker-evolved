@@ -24,8 +24,17 @@ module.exports = {
 
     return req;
   },
-  signToken: function ({ email, username, _id }) {
-    const payload = { email, username, _id };
-    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
-  },
+//   signToken: function ({ email, username, _id }) {
+//     const payload = { email, username, _id };
+//     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+//   },
+// };
+
+signToken: function ({ username, email, _id }) {
+  const payload = { username, email, _id };
+  if (!secret) {
+    throw new Error('JWT_SECRET is not defined in environment variables');
+  }
+  return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+},
 };

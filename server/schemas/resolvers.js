@@ -103,16 +103,20 @@ const resolvers = {
 Mutation: {
   addUser: async (parent, args) => {
     try {
+      const user = await User.create(args);
+      const token = signToken(user);
+      return { token, user };
+    } catch (error) {
       console.log('Attempting to create user with args:', args);
       const user = await User.create(args);
       console.log('User created:', user);
       const token = signToken(user);
       return { token, user };
-    } catch (error) {
+    } 
       console.error('Server-side addUser error:', error);
       if (error.code === 11000) {
         throw new AuthenticationError('Email or username already exists');
-      }
+      
       throw new AuthenticationError('Could not create user: ' + error.message);
     }
   }, // Added missing closing bracket for the addUser function
