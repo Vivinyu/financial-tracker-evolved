@@ -21,6 +21,9 @@ const Signup = () => {
       const token = mutationResponse.data.addUser.token;
       Auth.login(token);
     } catch (e) {
+      console.error('Signup error:', e);
+      console.error('Error details:', e.graphQLErrors);
+      console.error('Network error:', e.networkError);
       console.log(e);
     }
   };
