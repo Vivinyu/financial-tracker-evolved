@@ -8,7 +8,7 @@ const Signup = () => {
   const [formState, setFormState] = useState({ username: '', email: '', password: '' });
   const [addUser, { error }] = useMutation(ADD_USER);
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [setErrorMessage] = useState('');
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -33,30 +33,7 @@ const Signup = () => {
       }
     }
   };
-  
-  // In your JSX, display the error message:
-  {errorMessage && <Text color="red.500">{errorMessage}</Text>}
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const mutationResponse = await addUser({
-  //       variables: {
-  //         username: formState.username,
-  //         email: formState.email,
-  //         password: formState.password,
-  //       },
-  //     });
-  //     const token = mutationResponse.data.addUser.token;
-  //     Auth.login(token);
-  //   } catch (e) {
-  //     console.error('Signup error:', e);
-  //     console.error('Error details:', e.graphQLErrors);
-  //     console.error('Network error:', e.networkError);
-  //     console.log(e);
-  //   }
-  // };
-
-  const handleChange = (event) => {
+    const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({
       ...formState,

@@ -29,113 +29,91 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
   },
-  // Mutation: {
-  //   addUser: async (parent, { username, email, password }) => {
-  //     const user = await User.create({ username, email, password });
-  //     const token = signToken(user);
-  //     return { token, user };
-//   Mutation: {
-//     addUser: async (parent, args) => {
-//       try {
-//         const user = await User.create(args);
-//         const token = signToken(user);
-//         return { token, user };
-//       } catch (error) {
-//         console.error('Server-side addUser error:', error);
-//         throw new AuthenticationError('Could not create user');
-//     },
-//     login: async (parent, { email, password }) => {
-//       const user = await User.findOne({ email });
+  Mutation: {
+    addUser: async (parent, { username, email, password }) => {
+      try {
+        const user = await User.create({ username, email, password });
+        const token = signToken(user);
+        return { token, user };
+      } catch (error) {
+        console.error('Server-side addUser error:', error);
+        if (error.code === 11000) {
+          if (error.keyPattern.username) {
+            throw new AuthenticationError('Username already exists');
+          } else if (error.keyPattern.email) {
+            throw new AuthenticationError('Email already exists');
+          }
+        }
+        throw new AuthenticationError('Could not create user: ' + error.message);
+      }
+    },
+    login: async (parent, { email, password }) => {
+      try {
+        const user = await User.findOne({ email });
+        if (!user) {
+          throw new AuthenticationError('Incorrect credentials');
+        }
+        const correctPw = await user.isCorrectPassword(password);
+        if (!correctPw) {
+          throw new AuthenticationError('Incorrect credentials');
+        }
+        const token = signToken(user);
+        return { token, user };
+      } catch (error) {
+        console.error('Server-side login error:', error);
+        throw new AuthenticationError('Login failed: ' + error.message);
+      }
+    },
+    addBudget: async (parent, { amount }, context) => {
+      if (context.user) {
+        try {
+          const budget = await Budget.findOneAndUpdate(
+            { user: context.user._id },
+            { amount },
+            { new: true, upsert: true }
+          );
+          return budget;
+        } catch (error) {
+          console.error('Server-side addBudget error:', error);
+          throw new Error('Failed to add or update budget: ' + error.message);
+        }
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    addIncome: async (parent, { source, amount }, context) => {
+      if (context.user) {
+        try {
+          const income = await Income.create({
+            source,
+            amount,
+            user: context.user._id,
+          });
+          return income;
+        } catch (error) {
+          console.error('Server-side addIncome error:', error);
+          throw new Error('Failed to add income: ' + error.message);
+        }
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    addExpense: async (parent, { description, amount, category }, context) => {
+      if (context.user) {
+        try {
+          const expense = await Expense.create({
+            description,
+            amount,
+            category,
+            user: context.user._id,
+          });
+          return expense;
+        } catch (error) {
+          console.error('Server-side addExpense error:', error);
+          throw new Error('Failed to add expense: ' + error.message);
+        }
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+  },
+};
 
-//       if (!user) {
-//         throw new AuthenticationError('No user found with this email address');
-//       }
-
-//       const correctPw = await user.isCorrectPassword(password);
-
-//       if (!correctPw) {
-//         throw new AuthenticationError('Incorrect credentials');
-//       }
-
-//       const token = signToken(user);
-
-//       return { token, user };
-//     },
-//     addBudget: async (parent, { amount }, context) => {
-//       if (context.user) {
-//         const budget = await Budget.findOneAndUpdate(
-//           { user: context.user._id },
-//           { amount },
-//           { new: true, upsert: true }
-//         );
-//         return budget;
-//       }
-//       throw new AuthenticationError('You need to be logged in!');
-//     },
-//     addIncome: async (parent, { source, amount }, context) => {
-//       if (context.user) {
-//         const income = await Income.create({
-//           source,
-//           amount,
-//           user: context.user._id,
-//         });
-//         return income;
-//       }
-//       throw new AuthenticationError('You need to be logged in!');
-//     },
-//     addExpense: async (parent, { description, amount, category }, context) => {
-//       if (context.user) {
-//         const expense = await Expense.create({
-//           description,
-//           amount,
-//           category,
-//           user: context.user._id,
-//         });
-//         return expense;
-//       }
-//       throw new AuthenticationError('You need to be logged in!');
-//     },
-//   },
-// };
-
-// module.exports = resolvers;
-
-Mutation: {
-  addUser: async (parent, args) => {
-    try {
-      const user = await User.create(args);
-      const token = signToken(user);
-      return { token, user };
-    } catch (error) {
-      console.log('Attempting to create user with args:', args);
-      const user = await User.create(args);
-      console.log('User created:', user);
-      const token = signToken(user);
-      return { token, user };
-    } 
-      console.error('Server-side addUser error:', error);
-      if (error.code === 11000) {
-        throw new AuthenticationError('Email or username already exists');
-      
-      throw new AuthenticationError('Could not create user: ' + error.message);
-    }
-  }, // Added missing closing bracket for the addUser function
-  login: async (parent, { email, password }) => {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      throw new AuthenticationError('No user found with this email address');
-    }
-
-    const correctPw = await user.isCorrectPassword(password);
-
-    if (!correctPw) {
-      throw new AuthenticationError('Incorrect credentials');
-    }
-
-    // Assuming the signToken function exists and works correctly
-    const token = signToken(user);
-    return { token, user }; // Return the token and user upon successful login
-  }
-}}
 module.exports = resolvers;

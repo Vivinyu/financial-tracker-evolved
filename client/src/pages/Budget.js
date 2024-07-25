@@ -28,7 +28,7 @@ const Budget = () => {
         <form onSubmit={handleFormSubmit}>
           <Input 
             type="number" 
-            placeholder="Enter budget amount" 
+            placeholder="Zack what the heck Enter budget amount" 
             value={budgetAmount}
             onChange={(e) => setBudgetAmount(e.target.value)}
           />
