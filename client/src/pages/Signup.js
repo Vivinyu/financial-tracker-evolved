@@ -49,7 +49,7 @@ const Signup = () => {
     <Container maxW="container.sm" centerContent>
       <VStack spacing={4} align="stretch" width="100%">
         <BackButton />
-        <Heading as="h2" size="xl" textAlign="center">Sign Up</Heading>
+        <Heading as="h2" size="xl" textAlign="center" marginTop="100px">Sign Up</Heading>
         <form onSubmit={handleFormSubmit}>
           <VStack spacing={4}>
             <Input
@@ -73,13 +73,13 @@ const Signup = () => {
               value={formState.password}
               onChange={handleChange}
             />
-            <Button type="submit" colorScheme="teal" width="100%">Sign Up</Button>
+            <Button colorScheme="teal" type="submit" width="12%" backgroundColor="white" color="green" variant="solid" marginBottom="20px">Sign Up</Button>
           </VStack>
         </form>
         {error && <Text color="red.500" textAlign="center">Signup failed</Text>}
         <Text textAlign="center">
           Already have an account? {' '}
-          <RouterLink to="/login" style={{ color: 'teal' }}>
+          <RouterLink to="/login" style={{ color: 'green' }}>
             Login here
           </RouterLink>
         </Text>

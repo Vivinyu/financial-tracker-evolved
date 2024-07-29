@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { Box, Heading, Input, Button, Text, VStack, Container, useToast, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { Box, Heading, Input, Button, Text, VStack, Container, useToast, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Stack } from "@chakra-ui/react";
+import { Center, Square, Circle } from '@chakra-ui/react'
 import { ADD_INCOME } from '../utils/mutations';
 import { QUERY_INCOMES } from '../utils/queries';
 import BackButton from '../components/BackButton';
+
 
 const Income = () => {
   const [incomeData, setIncomeData] = useState({ source: '', amount: '' });
@@ -47,45 +49,57 @@ const Income = () => {
     <Container maxW="container.md" centerContent>
       <VStack spacing={4} align="stretch" width="100%">
         <BackButton />
-        <Heading as="h2" size="xl" textAlign="center">Income</Heading>
+        <Stack>
+          <Heading as="h2" size="xl" fontSize="40px" textAlign="center" color="green" marginBottom="30px" marginTop="100px">Income</Heading>
+        </Stack>
         <form onSubmit={handleFormSubmit}>
           <VStack spacing={4}>
-            <Input 
+            <Input
               name="source"
-              placeholder="Income source" 
+              placeholder="Income source"
               value={incomeData.source}
               onChange={handleChange}
+              padding="10px"
+              marginBottom="5px"
             />
-            <Input 
+
+            <Input
               name="amount"
-              type="number" 
-              placeholder="Amount" 
+              type="number"
+              placeholder="Amount"
               value={incomeData.amount}
               onChange={handleChange}
+              padding="10px"
+              marginBottom="30px"
             />
-            <Button colorScheme="teal" type="submit" width="100%">Add Income</Button>
+            <Button colorScheme="teal" type="submit" width="12%" backgroundColor="white" color="green" variant="solid" marginBottom="20px">Add Income</Button>
           </VStack>
         </form>
         {loading ? (
           <Text>Loading...</Text>
         ) : (
-          <Box overflowX="auto">
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Source</Th>
-                  <Th isNumeric>Amount</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data?.incomes.map((income) => (
-                  <Tr key={income._id}>
-                    <Td>{income.source}</Td>
-                    <Td isNumeric>${income.amount.toFixed(2)}</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
+          <Box bg='green' h='300px' color='white' p={4} display="flex" alignItems="center" justifyContent="center">
+            <TableContainer>
+              <Box overflowX="auto">
+                <Table variant="simple" color="white">
+                  <Text as="caption" mb={2} textAlign="center" color="white" fontSize='30px' fontWeight="bold" marginBottom="20px">Income History</Text>
+                  <Thead>
+                    <Tr>
+                      <Th p={4} textAlign="center">Source</Th>
+                      <Th p={4} textAlign="center" isNumeric>Amount</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {data?.incomes.map((income) => (
+                      <Tr key={income._id}>
+                        <Td p={4} textAlign="center">{income.source}</Td>
+                        <Td p={4} textAlign="center" isNumeric>${income.amount.toFixed(2)}</Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </Box>
+            </TableContainer>
           </Box>
         )}
       </VStack>

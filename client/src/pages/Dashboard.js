@@ -23,44 +23,48 @@ const Dashboard = () => {
     <Container maxW="container.md" centerContent>
       <VStack spacing={4} align="stretch" width="100%">
         <BackButton />
-        <Heading as="h2" size="xl" textAlign="center">Welcome, {user.username}!</Heading>
-        <Text fontSize="lg" textAlign="center">Here's your financial overview:</Text>
-        <SimpleGrid columns={[1, null, 2]} spacing={4}>
-          <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-            <StatGroup>
-              <Stat>
-                <StatLabel>Budget</StatLabel>
-                <StatNumber>${budget.toFixed(2)}</StatNumber>
-              </Stat>
-            </StatGroup>
-          </Box>
-          <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-            <StatGroup>
-              <Stat>
-                <StatLabel>Total Income</StatLabel>
-                <StatNumber>${totalIncome.toFixed(2)}</StatNumber>
-              </Stat>
-            </StatGroup>
-          </Box>
-          <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-            <StatGroup>
-              <Stat>
-                <StatLabel>Total Expenses</StatLabel>
-                <StatNumber>${totalExpenses.toFixed(2)}</StatNumber>
-              </Stat>
-            </StatGroup>
-          </Box>
-          <Box p={5} shadow="md" borderWidth="1px" borderRadius="md">
-            <StatGroup>
-              <Stat>
-                <StatLabel>Balance</StatLabel>
-                <StatNumber>${(totalIncome - totalExpenses).toFixed(2)}</StatNumber>
-              </Stat>
-            </StatGroup>
-          </Box>
-        </SimpleGrid>
+        <Heading as="h2" size="xl" textAlign="center" marginTop="100px" backgroundColor="green" color="white" h="100px" display="flex"
+          alignItems="center"
+          justifyContent="center">Welcome, {user.username}!</Heading>
+        <Text fontSize="lg" textAlign="center" as="b" marginBottom="30px" marginTop="30px">Here's your financial overview:</Text>
+        <Box display="flex" justifyContent="center" alignItems="center" p={4}>
+          <SimpleGrid columns={[1, null, 2]} spacing={15}>
+            <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg='green' height="100px" width="120px" color="white">
+              <StatGroup textAlign="center">
+                <Stat as="b">
+                  <StatLabel>Budget</StatLabel>
+                  <StatNumber marginTop="20px" marginLeft="0px">${budget.toFixed(2)}</StatNumber>
+                </Stat>
+              </StatGroup>
+            </Box>
+            <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg='green' height="100px" width="120px" color="white">
+             <StatGroup textAlign="center">
+                <Stat as="b">
+                  <StatLabel>Total Income</StatLabel>
+                  <StatNumber marginTop="20px" marginLeft="0px">${totalIncome.toFixed(2)}</StatNumber>
+                </Stat>
+              </StatGroup>
+            </Box>
+            <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg='green' height="100px" width="120px" color="white">
+              <StatGroup textAlign="center">
+                <Stat as="b">
+                  <StatLabel>Total Expenses</StatLabel>
+                  <StatNumber marginTop="20px" marginLeft="0px">${totalExpenses.toFixed(2)}</StatNumber>
+                </Stat>
+              </StatGroup>
+            </Box>
+            <Box p={5} shadow="md" borderWidth="1px" borderRadius="md" bg='green' height="100px" width="120px" color="white">
+              <StatGroup textAlign="center">
+                <Stat as="b">
+                  <StatLabel>Balance</StatLabel>
+                  <StatNumber marginTop="20px" marginLeft="0px">${(totalIncome - totalExpenses).toFixed(2)}</StatNumber>
+               </Stat>
+              </StatGroup>
+            </Box>
+          </SimpleGrid>
+        </Box>
       </VStack>
-    </Container>
+    </Container >
   );
 };
 

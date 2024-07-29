@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { Box, Heading, Input, Button, Text, VStack, Container, useToast, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { Box, Heading, Input, Button, Text, VStack, Container, useToast, Table, Thead, Tbody, Tr, Th, Td, Stack, TableContainer, TableCaption, Center} from "@chakra-ui/react";
 import { ADD_EXPENSE } from '../utils/mutations';
 import { QUERY_EXPENSES } from '../utils/queries';
 import BackButton from '../components/BackButton';
@@ -47,53 +47,64 @@ const Expenses = () => {
     <Container maxW="container.md" centerContent>
       <VStack spacing={4} align="stretch" width="100%">
         <BackButton />
-        <Heading as="h2" size="xl" textAlign="center">Expenses</Heading>
+        <Stack>
+          <Heading as="h2" size="xl" fontSize="40px" textAlign="center" color="green" marginBottom="30px" marginTop="100px">Expenses</Heading>
+        </Stack>
         <form onSubmit={handleFormSubmit}>
           <VStack spacing={4}>
-            <Input 
+            <Input
               name="description"
-              placeholder="Expense description" 
+              placeholder="Expense description"
               value={expenseData.description}
               onChange={handleChange}
+              padding="10px"
+              marginBottom="5px"
             />
-            <Input 
+            <Input
               name="amount"
-              type="number" 
-              placeholder="Amount" 
+              type="number"
+              placeholder="Amount"
               value={expenseData.amount}
               onChange={handleChange}
+              padding="10px"
+              marginBottom="5px"
             />
-            <Input 
+            <Input
               name="category"
-              placeholder="Category" 
+              placeholder="Category"
               value={expenseData.category}
               onChange={handleChange}
+              padding="10px"
+              marginBottom="20px"
             />
-            <Button colorScheme="teal" type="submit" width="100%">Add Expense</Button>
+            <Button colorScheme="teal" type="submit" width="12%" backgroundColor="white" color="green" variant="solid" marginBottom="20px">Add Expense</Button>
           </VStack>
         </form>
         {loading ? (
           <Text>Loading...</Text>
         ) : (
-          <Box overflowX="auto">
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Description</Th>
-                  <Th>Category</Th>
-                  <Th isNumeric>Amount</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {data?.expenses.map((expense) => (
-                  <Tr key={expense._id}>
-                    <Td>{expense.description}</Td>
-                    <Td>{expense.category}</Td>
-                    <Td isNumeric>${expense.amount.toFixed(2)}</Td>
+          <Box bg='green' h='300px' color='white' p={4} display="flex" alignItems="center" justifyContent="center">
+            <TableContainer>
+              <Table variant="simple" maxWidth="100%">
+              <Text as="caption" mb={2} textAlign="center" color="white" fontSize='30px' fontWeight="bold" marginBottom="20px">Expense History</Text>
+                <Thead>
+                  <Tr>
+                    <Th p={4} textAlign="center">Description</Th>
+                    <Th p={4} textAlign="center">Category</Th>
+                    <Th p={4} textAlign="center" isNumeric>Amount</Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>
+                </Thead>
+                <Tbody>
+                  {data?.expenses.map((expense) => (
+                    <Tr key={expense._id}>
+                      <Td p={4} textAlign="center">{expense.description}</Td>
+                      <Td p={4} textAlign="center">{expense.category}</Td>
+                      <Td p={4} textAlign="center" isNumeric>${expense.amount.toFixed(2)}</Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
           </Box>
         )}
       </VStack>

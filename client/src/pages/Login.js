@@ -45,7 +45,7 @@ const Login = () => {
     <Container maxW="container.sm" centerContent>
       <VStack spacing={4} align="stretch" width="100%">
         <BackButton />
-        <Heading as="h2" size="xl" textAlign="center">Login</Heading>
+        <Heading as="h2" size="xl" textAlign="center" marginTop="100px">Login</Heading>
         <form onSubmit={handleFormSubmit}>
           <VStack spacing={4}>
             <Input
@@ -62,13 +62,13 @@ const Login = () => {
               value={formState.password}
               onChange={handleChange}
             />
-            <Button type="submit" colorScheme="teal" width="100%">Login</Button>
+            <Button colorScheme="teal" type="submit" width="12%" backgroundColor="white" color="green" variant="solid" marginBottom="20px">Login</Button>
           </VStack>
         </form>
         {error && <Text color="red.500" textAlign="center">The provided credentials are incorrect</Text>}
         <Text textAlign="center">
           Don't have an account? {' '}
-          <RouterLink to="/signup" style={{ color: 'teal' }}>
+          <RouterLink to="/signup" style={{ color: 'green' }}>
             Sign up here
           </RouterLink>
         </Text>
