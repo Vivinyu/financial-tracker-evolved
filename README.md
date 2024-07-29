@@ -149,4 +149,4 @@ LinkedIn:
 
 Name: Jose De Los Santos Oliver
 GitHub:[GitHub Profile](https://github.com/Vivinyu)
-LinkedIn:www.linkedin.com/in/jose-de-los-santos-oliver-cts-ccent-280474255
+LinkedIn:https://linkedin.com/in/jose-de-los-santos-oliver-cts-ccent-280474255
