@@ -144,9 +144,9 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 ## Contributors
 
 Name: Anna Blount
-GitHub:
-LinkedIn:
+GitHub: https://github.com/silvernotshell
+LinkedIn: 
 
 Name: Jose De Los Santos Oliver
 GitHub:[GitHub Profile](https://github.com/Vivinyu)
-LinkedIn:https://linkedin.com/in/jose-de-los-santos-oliver-cts-ccent-280474255
+LinkedIn:www.linkedin.com/in/jose-de-los-santos-oliver-cts-ccent-280474255
