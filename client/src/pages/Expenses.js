@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-import { Box, Heading, Input, Button, Text, VStack, Container, useToast, Table, Thead, Tbody, Tr, Th, Td, Stack, TableContainer, TableCaption, Center} from "@chakra-ui/react";
+import { Box, Heading, Input, Button, Text, VStack, Container, useToast, Table, Thead, Tbody, Tr, Th, Td, Stack, TableContainer,} from "@chakra-ui/react";
 import { ADD_EXPENSE } from '../utils/mutations';
 import { QUERY_EXPENSES } from '../utils/queries';
 import BackButton from '../components/BackButton';

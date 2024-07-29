@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { Box, Heading, Input, Button, Text, VStack, Container, useToast, Table, Thead, Tbody, Tr, Th, Td, TableContainer, Stack } from "@chakra-ui/react";
-import { Center, Square, Circle } from '@chakra-ui/react'
+
 import { ADD_INCOME } from '../utils/mutations';
 import { QUERY_INCOMES } from '../utils/queries';
 import BackButton from '../components/BackButton';
@@ -12,7 +12,6 @@ const Income = () => {
   const { loading, data, refetch } = useQuery(QUERY_INCOMES);
   const [addIncome] = useMutation(ADD_INCOME);
   const toast = useToast();
-
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
