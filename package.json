@@ -14,9 +14,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^6.5.1",
-    "@babel/plugin-proposal-private-property-in-object": "^7.16.7"
-  },
+    "concurrently": "^6.5.1"
+     },
   "engines": {
     "node": "^22.3.0"
 }
