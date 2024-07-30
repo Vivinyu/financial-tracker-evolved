@@ -1,6 +1,13 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Budget, Income, Expense } = require('../models');
 const { signToken } = require('../utils/auth');
+const path = require('path');
+const fs = require('fs');
+
+console.log('Current directory:', __dirname);
+console.log('Parent directory contents:', fs.readdirSync(path.join(__dirname, '..')));
+
+
 
 const resolvers = {
   Query: {
