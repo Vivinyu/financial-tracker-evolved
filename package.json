@@ -10,13 +10,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd client && npm run build"
   },
-   "keywords": [],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "concurrently": "^6.5.1"
-     },
-     "dependencies": {
+  },
+  "dependencies": {
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
@@ -28,5 +29,5 @@
   },
   "engines": {
     "node": "^22.3.0"
-}
+  }
 }
