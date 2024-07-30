@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
-// const { User, Budget, Income, Expense } = require('../models');
-const { User, Budget, Income, Expense } = require(path.join(__dirname, '..', 'models'));
+const { User, Budget, Income, Expense } = require('../models');
+// const { User, Budget, Income, Expense } = require(path.join(__dirname, '..', 'models'));
 const { signToken } = require('../utils/auth');
 const path = require('path');
 const fs = require('fs');
